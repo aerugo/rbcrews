@@ -44,7 +44,4 @@ Then, open your browser and visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 1. **Upload PDFs:** Use the web form at the root URL (`/`) to upload one or more PDF reports.
 2. **Process PDFs:** Call the `/process` endpoint to run summarization on each uploaded PDF and generate a comparison report.
-3. **View Results:**
-   - Individual summaries are available at `/summaries`
-   - The comparison report is available at `/comparison`
 4. **Clear Data:** Use the `/clear` endpoint to remove all stored PDFs and results.
