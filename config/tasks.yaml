@@ -1,0 +1,22 @@
+# rbcrew/config/tasks.yaml
+
+summarize_macroeconomics:
+  description: >
+    Sammanfatta denna rapport med fokus på makroekonomi och inflation: {pdf_text}
+  expected_output: >
+    En sammanfattning av rapporten med fokus på de makroekonomiska och inflationsrelaterade delarna.
+  agent: macro_summarizer_agent
+
+summary_export_impact:
+  description: >
+    Sammanfatta denna rapport med fokus på hur svenska företag med exportverksamhet kan komma att påverkas: {pdf_text}
+  expected_output: >
+    En sammanfattning av rapporten med fokus på hur svenska företag med exportverksamhet kan komma att påverkas.
+  agent: export_industry_agent
+
+compare_summaries_task:
+  description: >
+    Jämför dessa sammanfattningar: {summaries} och lyft fram förändringar mellan dem.
+  expected_output: >
+    En enhetlig textbaserad jämförelserapport med fokus på förändringar över tid.
+  agent: compare_agent
