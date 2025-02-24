@@ -3,7 +3,7 @@ import os
 from crewai import Agent, Crew, Process, Task  # type: ignore
 from crewai.project import CrewBase, agent, crew, task  # type: ignore
 from dotenv import load_dotenv
-from langtrace_python_sdk import langtrace
+from langtrace_python_sdk import langtrace  # type: ignore
 
 from azure_llms import get_azure_llm
 
