@@ -1,8 +1,7 @@
-# We import Agent, Crew, Process, and Task from crewai
 from crewai import Agent, Crew, Process, Task  # type: ignore
-
-# If you need the CrewOutput class for type hints or advanced usage:
 from crewai.project import CrewBase, agent, crew, task  # type: ignore
+
+from azure_llms import gpt4o, o1
 
 
 @CrewBase
@@ -17,21 +16,24 @@ class FullCrew:
     def macro_summarizer_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["macro_summarizer_agent"], # type: ignore
-            verbose=True
+            llm=gpt4o,
+            verbose=True,
         )
     
     @agent
     def export_industry_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["export_industry_agent"], # type: ignore
-            verbose=True
+            llm=gpt4o,
+            verbose=True,
         )
 
     @agent
     def compare_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["compare_agent"], # type: ignore
-            verbose=True
+            llm=o1,
+            verbose=True,
         )
 
     @task
@@ -63,6 +65,18 @@ class FullCrew:
             tasks=[self.summarize_macroeconomics()],
             process=Process.sequential,
             verbose=True,
+            language="svenska", # type: ignore
+            output_log_file="logs/summary_crew_log.txt",
+        )
+    
+    def summarize_export_crew(self) -> Crew:
+        return Crew(
+            agents=[self.export_industry_agent()],
+            tasks=[self.summarize_export_industry()],
+            process=Process.sequential,
+            verbose=True,
+            language="svenska", # type: ignore
+            output_log_file="logs/export_summary_crew_log.txt",
         )
 
     @crew
@@ -72,20 +86,29 @@ class FullCrew:
             tasks=[self.compare_summaries_task()],
             process=Process.sequential,
             verbose=True,
+            language="svenska", # type: ignore
+            output_log_file="logs/compare_crew_log.txt",
         )
 
 
 
-async def summarize_one_pdf(pdf_content: str) -> str:
+async def summarize_one_pdf(filename: str, pdf_content: str) -> str:
     """
     Create a new summarizer crew instance and kickoff its execution asynchronously.
     Returns the summarized text (crew_output.raw).
     """
+
     # Instantiate a new summarizer crew for one run
     summ_crew = FullCrew().summarize_crew()
     # Kick off asynchronously with the input key matching the task template (here "pdf_text")
-    crew_output = await summ_crew.kickoff_async(inputs={"pdf_text": pdf_content})
-    return crew_output.raw
+    summary = await summ_crew.kickoff_async(inputs={"pdf_text": pdf_content})
+
+    export_crew = FullCrew().summarize_export_crew()
+    export_summary = await export_crew.kickoff_async(inputs={"pdf_text": pdf_content})
+
+    full_summary = summary.raw + "\n\n ---------- \n Konsekvenser för exportindustrin \n\n " + export_summary.raw
+
+    return full_summary
 
 
 async def compare_summaries(summaries: list[str]) -> str:

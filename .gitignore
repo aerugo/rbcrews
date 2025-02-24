@@ -10,3 +10,7 @@ wheels/
 .venv
 .aider*
 .env
+
+# Logs
+logs/
+*.log
