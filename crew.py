@@ -1,8 +1,17 @@
+import os
+
 from crewai import Agent, Crew, Process, Task  # type: ignore
 from crewai.project import CrewBase, agent, crew, task  # type: ignore
+from dotenv import load_dotenv
+from langtrace_python_sdk import langtrace
 
-from azure_llms import gpt4o, o1
+from azure_llms import get_azure_llm
 
+load_dotenv()
+
+# Must precede any llm module imports
+
+langtrace.init(api_key = os.getenv("LANGTRACE_API_KEY"))
 
 @CrewBase
 class FullCrew:
@@ -16,21 +25,21 @@ class FullCrew:
     def macro_summarizer_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["macro_summarizer_agent"], # type: ignore
-            llm=gpt4o,
+            llm=get_azure_llm("gpt4o"),
         )
     
     @agent
     def export_industry_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["export_industry_agent"], # type: ignore
-            llm=o1,
+            llm=get_azure_llm("o1"),
         )
 
     @agent
     def compare_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["compare_agent"], # type: ignore
-            llm=o1,
+            llm=get_azure_llm("o1"),
 
         )
 
@@ -54,6 +63,7 @@ class FullCrew:
     def compare_summaries_task(self) -> Task:
         return Task(
             config=self.tasks_config["compare_summaries_task"], # type: ignore
+            agent=self.compare_agent(),
         )
 
     @crew

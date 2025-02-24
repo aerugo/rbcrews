@@ -2,39 +2,72 @@
 
 summarize_macroeconomics:
   description: >
-    Sammanfatta denna rapport med fokus på makroekonomi och inflation: 
+    Summarize this report with a focus on macroeconomics and inflation:
+
+    -------------
+    REPORT TEXT
 
     {pdf_text}
 
-    Inkludera aldrig originaltexten i sammanfattningen. Analysen ska inte vara längre än 1000 ord.
+    -------------
+
+    Summarize the report in Swedish, focusing on macroeconomic and inflation-related aspects.
+    Never include the original text in the summary. The analysis should not exceed 1000 words.
+
   expected_output: >
-    En sammanfattning av rapporten på svenska med fokus på de makroekonomiska och inflationsrelaterade delarna.
-    Sammanfattningen ska inte vara längre än 1000 ord.
-    Inkludera aldrig originaltexten i sammanfattningen.
-  agent: macro_summarizer_agent
+    Your output content is a summary of the report in Swedish, focusing on macroeconomic and inflation-related aspects.
+
+    Format:
+
+    - Title of the report that you are summarizing.
+    - Date of publication of the report.
+    - Summary of the report focusing on macroeconomic and inflation-related aspects.
+
+    The summary should not exceed 1000 words. Never include the original text in the summary.
+
+    Kom ihåg att aldrig inkludera originaltexten i sammanfattningen.
+    Du ska skriva på svenska.
 
 summary_export_impact:
   description: >
-    Analysera denna rapport med fokus på hur svenska företag med exportverksamhet kan komma att påverkas: 
+    Analyze this report with a focus on how Swedish companies with export operations may be affected:
+
+    -------------
+    REPORT
+    -------------
 
     {pdf_text}
-    
-    Inkludera aldrig originaltexten i sammanfattningen. Analysen ska inte vara längre än 1000 ord.
+
+    -------------
+
+    Analyze the report with a focus on how Swedish companies with export operations may be affected by the changes described in the report.
+    Never include the original text in the summary. The analysis should not exceed 1000 words.
+
   expected_output: >
-    En analys med fokus på hur svenska företag med exportverksamhet kan komma att påverkas av de förändringar som beskrivs i rapporten.
-    Analysen ska inte vara längre än 1000 ord.
-    Inkludera aldrig originaltexten i sammanfattningen.
-  agent: export_industry_agent
+    Your output content is an analysis focusing on how Swedish companies with export operations may be affected by the changes described in the report.
+    The analysis should not exceed 1000 words. Never include the original text in the summary.
+
+    Kom ihåg att aldrig inkludera originaltexten i sammanfattningen.
+    Du ska skriva på svenska.
 
 compare_summaries_task:
   description: >
+
+    Compare these summaries of reports and highlight changes between the reports.
+
+    ------------
+    SUMMARIES
+    ------------
+
     {summaries}
 
-    Jämför dessa sammanfattningar av rapporter och lyft fram förändringar mellan rapporterna.
-    Dela upp analysen i två delar: en övergripande jämförelse och en mer detaljerad analys av hur förutsättningarna för svenska exportföretag har förändrats.
+    ------------
+
+    Divide the analysis into two parts: an overall comparison and a more detailed analysis of how the conditions for Swedish export companies have changed.
 
   expected_output: >
-    En enhetlig analys på svenska med två delar: en övergripande jämförelse av de två sammanfattningarna och en mer detaljerad analys av hur förutsättningarna för svenska exportföretag har förändrats.
-    Analysen ska inte vara längre än 1000 ord.
-    Inkludera aldrig originaltexten i sammanfattningen.
-  agent: compare_agent
+    Your output content is a cohesive analysis in Swedish with two parts: an overall comparison of the two summaries and a more detailed analysis of how the conditions for Swedish export companies have changed.
+    The analysis should not exceed 1000 words. Never include the original text in the summary.
+
+    Kom ihåg att aldrig inkludera originaltexten i sammanfattningen.
+    Du ska skriva på svenska.

@@ -24,6 +24,7 @@ Following the Style Conventions
 import asyncio
 
 import markdown
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request, UploadFile
 from fastapi.responses import HTMLResponse, StreamingResponse
 
@@ -31,6 +32,7 @@ from crew import FullCrew, compare_summaries, summarize_one_pdf
 from frontend import frontend
 from pdf import InMemoryPdfRepo, PdfReport, parse_pdf
 
+load_dotenv()
 def render_markdown(md_string: str) -> str:
     html = markdown.markdown(
         md_string,
@@ -43,6 +45,7 @@ app = FastAPI()
 
 # Mount static files directory
 from fastapi.staticfiles import StaticFiles
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Simple in-memory store for PDFs
@@ -68,7 +71,7 @@ async def upload_pdfs(pdf_files: list[UploadFile]):
         assert isinstance(text, str)
         new_pdf = PdfReport(filename=file.filename, content_text=text)
         repo.store_pdf(new_pdf)
-    return {"message": f"Uploaded {len(pdf_files)} PDF(s) successfully."}
+    return {"message": f"Laddade upp {len(pdf_files)} PDF-dokument."}
 
 @app.get("/process")
 async def process_reports():
@@ -76,11 +79,11 @@ async def process_reports():
     pdfs = repo.list_pdfs()
     if not pdfs:
         async def no_pdf():
-            yield render_markdown("**Error:** No PDFs to process.\n")
+            yield render_markdown("**Error:** Inga PDF-dokument att bearbeta.\n")
         return StreamingResponse(no_pdf(), media_type="text/html")
 
     async def event_generator():
-        yield render_markdown("**Starting processing of PDFs...**\n\n---\n")
+        yield render_markdown("**Börjar analysera...**\n\n---\n")
         print("Starting processing of PDFs...")
         # Create an async task per PDF along with its filename
         tasks: list[asyncio.Task[str]] = [
@@ -103,7 +106,7 @@ async def process_reports():
             yield render_markdown(f"{line}\n---\n")
 
         # After all summarizations, start the comparison stage
-        yield render_markdown("**Starting comparison of summaries...**\n\n---\n")
+        yield render_markdown("**Påbörjar jämförelseanalysen...**\n\n---\n")
         print("Starting comparison of summaries...")
         comparison_report = await compare_summaries(completed_summaries)
         print(comparison_report)
