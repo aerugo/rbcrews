@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 20px;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+p {
+  color: #555;
+}
+input[type="file"] {
+  display: block;
+  margin: 10px auto;
+}
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+}
+button:hover {
+  background-color: #0056b3;
+}
+#upload-message {
+  text-align: center;
+  margin-top: 10px;
+  color: green;
+}
+form {
+  margin-bottom: 20px;
+}
