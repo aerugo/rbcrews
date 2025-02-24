@@ -65,11 +65,11 @@ async def process_reports():
     pdfs = repo.list_pdfs()
     if not pdfs:
         async def no_pdf():
-            yield markdown.markdown("Error: No PDFs to process.\n")
+            yield markdown.markdown("Error: No PDFs to process.\n", extensions=['nl2br'])
         return StreamingResponse(no_pdf(), media_type="text/html")
 
     async def event_generator():
-        yield markdown.markdown("Starting processing of PDFs...\n\n---\n")
+        yield markdown.markdown("Starting processing of PDFs...\n\n---\n", extensions=['nl2br'])
         print("Starting processing of PDFs...")
         # Create an async task per PDF along with its filename
         tasks: list[asyncio.Task[str]] = [
@@ -89,13 +89,13 @@ async def process_reports():
             completed_summaries.append(summary_text)
             line = f"PDF #{i}: \n\n{summary_text}\n"
             print(summary_text)
-            yield markdown.markdown(f"{line}\n---\n")
+            yield markdown.markdown(f"{line}\n---\n", extensions=['nl2br'])
 
         # After all summarizations, start the comparison stage
-        yield markdown.markdown("Starting comparison of summaries...\n\n---\n")
+        yield markdown.markdown("Starting comparison of summaries...\n\n---\n", extensions=['nl2br'])
         print("Starting comparison of summaries...")
         comparison_report = await compare_summaries(completed_summaries)
         print(comparison_report)
-        yield markdown.markdown(f"{comparison_report}\n---\n")
+        yield markdown.markdown(f"{comparison_report}\n---\n", extensions=['nl2br'])
 
     return StreamingResponse(event_generator(), media_type="text/html")
