@@ -31,6 +31,13 @@ from crew import FullCrew, compare_summaries, summarize_one_pdf
 from frontend import frontend
 from pdf import InMemoryPdfRepo, PdfReport, parse_pdf
 
+def render_markdown(md_string: str) -> str:
+    html = markdown.markdown(
+        md_string,
+        extensions=['nl2br', 'extra', 'smarty', 'sane_lists']
+    )
+    return f'<div class="md-container">{html}</div>'
+
 # Initialize the FastAPI app
 app = FastAPI()
 
@@ -69,11 +76,11 @@ async def process_reports():
     pdfs = repo.list_pdfs()
     if not pdfs:
         async def no_pdf():
-            yield markdown.markdown("Error: No PDFs to process.\n", extensions=['nl2br'])
+            yield render_markdown("**Error:** No PDFs to process.\n")
         return StreamingResponse(no_pdf(), media_type="text/html")
 
     async def event_generator():
-        yield markdown.markdown("Starting processing of PDFs...\n\n---\n", extensions=['nl2br'])
+        yield render_markdown("**Starting processing of PDFs...**\n\n---\n")
         print("Starting processing of PDFs...")
         # Create an async task per PDF along with its filename
         tasks: list[asyncio.Task[str]] = [
@@ -91,15 +98,15 @@ async def process_reports():
         for i, future in enumerate(asyncio.as_completed([t for _, t in tasks_with_names]), start=1):
             summary_text = await future
             completed_summaries.append(summary_text)
-            line = f"PDF #{i}: \n\n{summary_text}\n"
+            line = f"**PDF #{i}:**\n\n{summary_text}\n"
             print(summary_text)
-            yield markdown.markdown(f"{line}\n---\n", extensions=['nl2br'])
+            yield render_markdown(f"{line}\n---\n")
 
         # After all summarizations, start the comparison stage
-        yield markdown.markdown("Starting comparison of summaries...\n\n---\n", extensions=['nl2br'])
+        yield render_markdown("**Starting comparison of summaries...**\n\n---\n")
         print("Starting comparison of summaries...")
         comparison_report = await compare_summaries(completed_summaries)
         print(comparison_report)
-        yield markdown.markdown(f"{comparison_report}\n---\n", extensions=['nl2br'])
+        yield render_markdown(f"{comparison_report}\n\n---\n")
 
     return StreamingResponse(event_generator(), media_type="text/html")
