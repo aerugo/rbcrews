@@ -17,7 +17,6 @@ class FullCrew:
         return Agent(
             config=self.agents_config["macro_summarizer_agent"], # type: ignore
             llm=gpt4o,
-            verbose=True,
         )
     
     @agent
@@ -25,7 +24,6 @@ class FullCrew:
         return Agent(
             config=self.agents_config["export_industry_agent"], # type: ignore
             llm=o1,
-            verbose=True,
         )
 
     @agent
@@ -33,7 +31,7 @@ class FullCrew:
         return Agent(
             config=self.agents_config["compare_agent"], # type: ignore
             llm=o1,
-            verbose=True,
+
         )
 
     @task
@@ -74,7 +72,6 @@ class FullCrew:
             agents=[self.export_industry_agent()],
             tasks=[self.summarize_export_industry()],
             process=Process.sequential,
-            verbose=True,
             language="svenska", # type: ignore
             output_log_file="logs/export_summary_crew_log.txt",
         )
@@ -85,7 +82,6 @@ class FullCrew:
             agents=[self.compare_agent()],
             tasks=[self.compare_summaries_task()],
             process=Process.sequential,
-            verbose=True,
             language="svenska", # type: ignore
             output_log_file="logs/compare_crew_log.txt",
         )
