@@ -2,24 +2,39 @@
 
 summarize_macroeconomics:
   description: >
-    Sammanfatta denna rapport med fokus på makroekonomi och inflation: {pdf_text}
+    Sammanfatta denna rapport med fokus på makroekonomi och inflation: 
+
+    {pdf_text}
+
+    Inkludera aldrig originaltexten i sammanfattningen. Analysen ska inte vara längre än 1000 ord.
   expected_output: >
     En sammanfattning av rapporten på svenska med fokus på de makroekonomiska och inflationsrelaterade delarna.
-    Ta inte med originaltexten i sammanfattningen.
+    Sammanfattningen ska inte vara längre än 1000 ord.
+    Inkludera aldrig originaltexten i sammanfattningen.
   agent: macro_summarizer_agent
 
 summary_export_impact:
   description: >
-    Sammanfatta denna rapport med fokus på hur svenska företag med exportverksamhet kan komma att påverkas: {pdf_text}
+    Analysera denna rapport med fokus på hur svenska företag med exportverksamhet kan komma att påverkas: 
+
+    {pdf_text}
+    
+    Inkludera aldrig originaltexten i sammanfattningen. Analysen ska inte vara längre än 1000 ord.
   expected_output: >
-    En analys av rapporten med fokus på hur svenska företag med exportverksamhet kan komma att påverkas.
-    Ta inte med originaltexten i sammanfattningen.
+    En analys med fokus på hur svenska företag med exportverksamhet kan komma att påverkas av de förändringar som beskrivs i rapporten.
+    Analysen ska inte vara längre än 1000 ord.
+    Inkludera aldrig originaltexten i sammanfattningen.
   agent: export_industry_agent
 
 compare_summaries_task:
   description: >
     {summaries}
+
     Jämför dessa sammanfattningar av rapporter och lyft fram förändringar mellan rapporterna.
+    Dela upp analysen i två delar: en övergripande jämförelse och en mer detaljerad analys av hur förutsättningarna för svenska exportföretag har förändrats.
+
   expected_output: >
-    En enhetlig jämförelserapport på svenska med fokus på förändringar över tid.
+    En enhetlig analys på svenska med två delar: en övergripande jämförelse av de två sammanfattningarna och en mer detaljerad analys av hur förutsättningarna för svenska exportföretag har förändrats.
+    Analysen ska inte vara längre än 1000 ord.
+    Inkludera aldrig originaltexten i sammanfattningen.
   agent: compare_agent

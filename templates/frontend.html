@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PDF Uploader</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>PPR Analytiker</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
   </head>
   <body>
     <div class="container">
-      <h1>Upload Central Bank PDF Reports</h1>
-      <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="pdf_files" multiple>
-        <button type="submit">Upload PDFs</button>
+      <h1>Analys av penningpolitiska rapporter</h1>
+      <form
+        id="upload-form"
+        action="/upload"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" name="pdf_files" multiple />
+        <button type="submit">Ladda upp PDF-dokument</button>
       </form>
       <div id="upload-message"></div>
-      <hr/>
-      <h2>Run Summaries</h2>
-      <p>After uploading PDFs, call <code>/process</code> to summarize and compare them.</p>
-      <p>Check <code>/summaries</code> to see individual summaries, and <code>/comparison</code> for the changes report.</p>
+      <hr />
+      <h2>Kör analys</h2>
+      <p>
+        Den agentbaserade modellen kommer att analysera de uppladdade
+        rapporterna och och sammanfatta dem ur två perspektiv:
+      </p>
+      <ul>
+        <li>med fokus på makroekonomiska faktorer och inflationsutsikter.</li>
+        <li>
+          med fokus på hur svenska företag med exportverksamhet kan komma att
+          påverkas.
+        </li>
+      </ul>
+      <p>Efter det följer en analys av vad rapporterna säger över tid.</p>
+      <p>
+        Rapporterna sammanfattas löpande. För att spara rapporterna är det
+        enklaste sättet att exportera sidan som PDF.
+      </p>
       <form action="/process" method="get">
-        <button type="submit">Process PDFs</button>
+        <button type="submit">Kör analysen</button>
       </form>
     </div>
     <script src="/static/js/main.js"></script>

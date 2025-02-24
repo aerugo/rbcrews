@@ -1,11 +1,8 @@
-import logging
-
 from crewai import Agent, Crew, Process, Task  # type: ignore
 from crewai.project import CrewBase, agent, crew, task  # type: ignore
 
 from azure_llms import gpt4o, o1
 
-logging.basicConfig(level=logging.DEBUG)
 
 @CrewBase
 class FullCrew:
@@ -65,11 +62,11 @@ class FullCrew:
             agents=[self.macro_summarizer_agent()],
             tasks=[self.summarize_macroeconomics()],
             process=Process.sequential,
-            verbose=True,
             language="svenska", # type: ignore
             output_log_file="logs/summary_crew_log.txt",
         )
     
+    @crew
     def summarize_export_crew(self) -> Crew:
         return Crew(
             agents=[self.export_industry_agent()],
