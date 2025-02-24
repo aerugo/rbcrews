@@ -9,7 +9,7 @@ base_url = env["AZURE_AI_FOUNDRY_ENDPOINT"]
 api_key = SecretStr(env["AZURE_AI_FOUNDRY_API_KEY"] or "")
 
 o1 = AzureChatOpenAI(
-    azure_deployment="o1",
+    azure_deployment="o1-crew",
     model="o1",
     api_version=api_version,
     api_key=api_key,

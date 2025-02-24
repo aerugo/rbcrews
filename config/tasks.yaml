@@ -4,19 +4,22 @@ summarize_macroeconomics:
   description: >
     Sammanfatta denna rapport med fokus på makroekonomi och inflation: {pdf_text}
   expected_output: >
-    En sammanfattning på svenska av rapporten med fokus på de makroekonomiska och inflationsrelaterade delarna.
+    En sammanfattning av rapporten på svenska med fokus på de makroekonomiska och inflationsrelaterade delarna.
+    Ta inte med originaltexten i sammanfattningen.
   agent: macro_summarizer_agent
 
 summary_export_impact:
   description: >
     Sammanfatta denna rapport med fokus på hur svenska företag med exportverksamhet kan komma att påverkas: {pdf_text}
   expected_output: >
-    En sammanfattning på svenska av rapporten med fokus på hur svenska företag med exportverksamhet kan komma att påverkas.
+    En analys av rapporten med fokus på hur svenska företag med exportverksamhet kan komma att påverkas.
+    Ta inte med originaltexten i sammanfattningen.
   agent: export_industry_agent
 
 compare_summaries_task:
   description: >
-    Jämför dessa sammanfattningar: {summaries} och lyft fram förändringar mellan dem.
+    {summaries}
+    Jämför dessa sammanfattningar av rapporter och lyft fram förändringar mellan rapporterna.
   expected_output: >
-    En enhetlig textbaserad jämförelserapport på svenska med fokus på förändringar över tid.
+    En enhetlig jämförelserapport på svenska med fokus på förändringar över tid.
   agent: compare_agent

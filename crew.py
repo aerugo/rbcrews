@@ -1,8 +1,11 @@
+import logging
+
 from crewai import Agent, Crew, Process, Task  # type: ignore
 from crewai.project import CrewBase, agent, crew, task  # type: ignore
 
 from azure_llms import gpt4o, o1
 
+logging.basicConfig(level=logging.DEBUG)
 
 @CrewBase
 class FullCrew:

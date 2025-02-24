@@ -28,7 +28,7 @@ A minimal example demonstrating a multimodal financial report summarizer and com
 Run the server with uvicorn:
 
 ```bash
-uvicorn app:app --reload
+uv uvicorn app:app --reload
 ```
 
 Then, open your browser and visit [http://127.0.0.1:8000](http://127.0.0.1:8000) to access the PDF uploader interface.
