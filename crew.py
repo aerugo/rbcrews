@@ -24,7 +24,7 @@ class FullCrew:
     def export_industry_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["export_industry_agent"], # type: ignore
-            llm=gpt4o,
+            llm=o1,
             verbose=True,
         )
 
