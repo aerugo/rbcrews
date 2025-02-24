@@ -19,23 +19,16 @@ A minimal example demonstrating a multimodal financial report summarizer and com
 2. **Install dependencies with uv:**
 
    ```bash
-   uv install
+   uv sync
    ```
 
    This command will install all required packages as specified in `pyproject.toml`.
 
-## Running the Application
 
-Start the FastAPI server using uv:
-
-```bash
-uv run
-```
-
-Alternatively, you can run the server with uvicorn:
+Run the server with uvicorn:
 
 ```bash
-uvicorn rbcrew:app --reload
+uvicorn app:app --reload
 ```
 
 Then, open your browser and visit [http://127.0.0.1:8000](http://127.0.0.1:8000) to access the PDF uploader interface.
