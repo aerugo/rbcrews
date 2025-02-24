@@ -34,6 +34,10 @@ from pdf import InMemoryPdfRepo, PdfReport, parse_pdf
 # Initialize the FastAPI app
 app = FastAPI()
 
+# Mount static files directory
+from fastapi.staticfiles import StaticFiles
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # Simple in-memory store for PDFs
 repo = InMemoryPdfRepo()
 
@@ -42,7 +46,7 @@ full_crew = FullCrew()
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request) -> HTMLResponse:
-    return await frontend()
+    return await frontend(request)
 
 @app.post("/upload")
 async def upload_pdfs(pdf_files: list[UploadFile]):
