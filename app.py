@@ -31,9 +31,7 @@ from crew import FullCrew, compare_summaries, summarize_one_pdf
 from frontend import frontend
 from pdf import InMemoryPdfRepo, PdfReport, parse_pdf
 
-###############################################################################
-# FastAPI Application
-###############################################################################
+# Initialize the FastAPI app
 app = FastAPI()
 
 # Simple in-memory store for PDFs
@@ -74,9 +72,9 @@ async def process_reports():
         yield markdown.markdown("Starting processing of PDFs...\n\n---\n")
         print("Starting processing of PDFs...")
         # Create an async task per PDF along with its filename
-        tasks = [
+        tasks: list[asyncio.Task[str]] = [
             asyncio.create_task(
-                summarize_one_pdf(pdf.content_text)
+                summarize_one_pdf(filename=pdf.filename, pdf_content=pdf.content_text)
             )
             for pdf in pdfs
         ]
